@@ -1,3 +1,6 @@
+-- ========================================
+-- Organization Table
+-- ========================================
 CREATE TABLE organization (
 	organization_id SERIAL PRIMARY KEY,
 	name VARCHAR(150) NOT NULL,
@@ -6,9 +9,49 @@ CREATE TABLE organization (
 	logo_filename VARCHAR(255) NOT NULL
 );
 
+-- ========================================
+-- Insert sample data: Organizations
+-- ========================================
 INSERT INTO organization (name, description, contact_email, logo_filename)
 VALUES
 ('BrightFuture Builders', 'A nonprofit focused on improving community infrastructure through sustainable construction projects.', 'info@brightfuturebuilders.org', 'brightfuture-logo.png'),
 ('GreenHarvest Growers', 'An urban farming collective promoting food sustainability and education in local neighborhoods.', 'contact@greenharvest.org', 'greenharvest-logo.png'),
 ('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
 
+-- ========================================
+-- Projects Table
+-- ========================================
+CREATE TABLE project (
+	project_id SERIAL PRIMARY KEY,
+	organization_id INTEGER NOT NULL REFERENCES organization(organization_id),
+	title VARCHAR(150) NOT NULL,
+	description TEXT NOT NULL,
+	location VARCHAR(255) NOT NULL,
+	date DATE NOT NULL
+);
+
+-- ========================================
+-- Insert sample data: PROJECTS
+-- ========================================
+INSERT INTO project (organization_id, title, description, location, date) 
+VALUES
+-- Proyectos para BrightFuture Builders (organization_id = 1)
+(1, 'Community Center Roof Repair', 'Repairing the roof of the downtown community center using sustainable materials.', 'Downtown Community Hub', '2026-04-15'),
+(1, 'Sustainable Park Bench Installation', 'Building and installing recycled plastic park benches along the riverside walking path.', 'Riverside Park', '2026-05-10'),
+(1, 'Eco-Friendly Library Ramp', 'Constructing an ADA-compliant wooden accessibility ramp for the public library.', 'Westside Public Library', '2026-06-01'),
+(1, 'Solar Panel Setup for Shelter', 'Installing a small-scale solar power system to lower energy costs for the animal shelter.', 'Hope Animal Shelter', '2026-06-20'),
+(1, 'Neighborhood Rain Garden Build', 'Creating a rain garden infrastructure to manage runoff and beautify the neighborhood plaza.', 'Oak Street Plaza', '2026-07-05'),
+
+-- Proyectos para GreenHarvest Growers (organization_id = 2)
+(2, 'Urban Rooftop Farm Setup', 'Establishing raised garden beds on the high school roof for agricultural education.', 'Central High School', '2026-04-20'),
+(2, 'Community Composting Workshop', 'Hosting a hands-on workshop teaching residents how to set up and maintain backyard compost bins.', 'Northside Community Center', '2026-05-02'),
+(2, 'Hydroponics Lab Installation', 'Setting up indoor vertical hydroponic systems for year-round greens production.', 'Youth Development Club', '2026-05-25'),
+(2, 'Neighborhood Seed Planting Day', 'Distributing heirloom seeds and planting community flower and vegetable borders.', 'Eastside Park', '2026-06-12'),
+(2, 'Fall Harvest Food Drive Prep', 'Organizing and harvesting produce beds to donate directly to local food pantries.', 'GreenHarvest Main Facility', '2026-09-01'),
+
+-- Proyectos para UnityServe Volunteers (organization_id = 3)
+(3, 'Food Bank Packaging Drive', 'Sorting and packing bulk food donations into family-sized boxes for distribution.', 'Regional Food Bank', '2026-04-18'),
+(3, 'Senior Care Tech Assistance', 'Helping elderly residents set up communication devices to connect with family members.', 'Sunset Retirement Village', '2026-05-05'),
+(3, 'After-School Tutoring Outreach', 'Providing one-on-one homework help and mentoring for elementary school students.', 'Southside Elementary', '2026-05-28'),
+(3, 'Winter Coat Distribution Prep', 'Sorting, cleaning, and cataloging donated winter coats ahead of the cold season.', 'UnityServe Center', '2026-10-10'),
+(3, 'Disaster Relief Kit Assembly', 'Assembling emergency preparedness hygiene and supply kits for local outreach.', 'Emergency Response Warehouse', '2026-06-15');
