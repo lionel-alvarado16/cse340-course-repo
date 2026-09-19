@@ -55,3 +55,62 @@ VALUES
 (3, 'After-School Tutoring Outreach', 'Providing one-on-one homework help and mentoring for elementary school students.', 'Southside Elementary', '2026-05-28'),
 (3, 'Winter Coat Distribution Prep', 'Sorting, cleaning, and cataloging donated winter coats ahead of the cold season.', 'UnityServe Center', '2026-10-10'),
 (3, 'Disaster Relief Kit Assembly', 'Assembling emergency preparedness hygiene and supply kits for local outreach.', 'Emergency Response Warehouse', '2026-06-15');
+
+-- ========================================
+-- Categories Table
+-- ========================================
+CREATE TABLE category (
+	category_id SERIAL PRIMARY KEY,
+	category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- ========================================
+-- Project Categories (Junction Table)
+-- ========================================
+CREATE TABLE project_category (
+	project_id INTEGER NOT NULL REFERENCES project(project_id),
+	category_id INTEGER NOT NULL REFERENCES category(category_id),
+	PRIMARY KEY (project_id, category_id)
+);
+
+-- ========================================
+-- Insert sample data: Categories
+-- ========================================
+INSERT INTO category (category_name) 
+VALUES 
+('Environment'),
+('Community Service'),
+('Education'),
+('Food Assistance');
+
+-- ========================================
+-- Insert sample data: Project Categories
+-- ========================================
+INSERT INTO project_category (project_id, category_id) 
+VALUES
+-- Projects for BrightFuture Builders (organization_id = 1)
+(1, 2),  -- Community Center Roof Repair -> Community Service
+(2, 1),  -- Sustainable Park Bench Installation -> Environment
+(2, 2),  -- Sustainable Park Bench Installation -> Community Service
+(3, 2),  -- Eco-Friendly Library Ramp -> Community Service
+(4, 1),  -- Solar Panel Setup for Shelter -> Environment
+(5, 1),  -- Neighborhood Rain Garden Build -> Environment
+
+-- Projects for GreenHarvest Growers (organization_id = 2)
+(6, 1),  -- Urban Rooftop Farm Setup -> Environment
+(6, 3),  -- Urban Rooftop Farm Setup -> Education
+(7, 1),  -- Community Composting Workshop -> Environment
+(7, 3),  -- Community Composting Workshop -> Education
+(8, 1),  -- Hydroponics Lab Installation -> Environment
+(8, 3),  -- Hydroponics Lab Installation -> Education
+(9, 1),  -- Neighborhood Seed Planting Day -> Environment
+(10, 4), -- Fall Harvest Food Drive Prep -> Food Assistance
+
+-- Projects for UnityServe Volunteers (organization_id = 3)
+(11, 4), -- Food Bank Packaging Drive -> Food Assistance
+(11, 2), -- Food Bank Packaging Drive -> Community Service
+(12, 2), -- Senior Care Tech Assistance -> Community Service
+(12, 3), -- Senior Care Tech Assistance -> Education
+(13, 3), -- After-School Tutoring Outreach -> Education
+(14, 2), -- Winter Coat Distribution Prep -> Community Service
+(15, 2); -- Disaster Relief Kit Assembly -> Community Service
