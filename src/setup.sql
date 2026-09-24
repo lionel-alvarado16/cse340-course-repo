@@ -23,11 +23,12 @@ VALUES
 -- ========================================
 CREATE TABLE project (
 	project_id SERIAL PRIMARY KEY,
-	organization_id INTEGER NOT NULL REFERENCES organization(organization_id),
+	organization_id INTEGER NOT NULL,
 	title VARCHAR(150) NOT NULL,
 	description TEXT NOT NULL,
 	location VARCHAR(255) NOT NULL,
-	date DATE NOT NULL
+	date DATE NOT NULL,
+	FOREIGN KEY (organization_id) REFERENCES organization(organization_id)
 );
 
 -- ========================================
@@ -68,9 +69,11 @@ CREATE TABLE category (
 -- Project Categories (Junction Table)
 -- ========================================
 CREATE TABLE project_category (
-	project_id INTEGER NOT NULL REFERENCES project(project_id),
-	category_id INTEGER NOT NULL REFERENCES category(category_id),
-	PRIMARY KEY (project_id, category_id)
+	project_id INTEGER NOT NULL,
+	category_id INTEGER NOT NULL,
+	PRIMARY KEY (project_id, category_id),
+	FOREIGN KEY (project_id) REFERENCES project(project_id),
+	FOREIGN KEY (category_id) REFERENCES category(category_id)
 );
 
 -- ========================================
