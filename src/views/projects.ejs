@@ -1,14 +1,13 @@
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
-    <h2>Upcoming Service Projects</h2>
     <ul class="project-list">
         <% projects.forEach(project => { %>
             <li class="project-card">
                 <div class="project-header">
                     <strong><%= new Date(project.date).toLocaleDateString() %></strong>: 
-                    <%= project.title %> 
-                    (<em><%= project.organization_name %></em>)
+                    <a href="/project/<%= project.project_id %>"><%= project.title %></a> 
+                    (<em><a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></em>)
                 </div>
                 <div class="project-details">
                     <p class="project-description"><%= project.description %></p>
