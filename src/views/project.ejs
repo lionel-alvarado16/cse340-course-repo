@@ -8,5 +8,14 @@
     <p>Date: <%= new Date(projectDetails.date).toLocaleDateString() %></p>
     <p>Location: <%= projectDetails.location %></p>
     <p>Partner Organization Name: <a href="/organization/<%= projectDetails.organization_id %>"><%= projectDetails.organization_name %></a></p>
+
+    <div class="project-categories">
+        <p>Categories:</p>
+        <div class="tags-container">
+            <% categories.forEach(category => { %>
+                <a href="/category/<%= category.category_id %>" class="category-tag"><%= category.category_name %></a>
+            <% }) %>
+        </div>
+    </div>
 </main>
 <%- include('partials/footer') %>
