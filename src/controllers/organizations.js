@@ -22,7 +22,7 @@ const showOrganizationDetailsPage = async (req, res) => {
 const showNewOrganizationForm = async (req, res) => {
     const title = 'Add New Organization';
 
-    res.render('neworganization', { title });
+    res.render('new-organization', { title });
 };
 
 // Export any controller functions
