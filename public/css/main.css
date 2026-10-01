@@ -337,6 +337,80 @@ footer p {
 }
 
 /* ==========================================================================
+   Form Styles (Organization Form)
+   ========================================================================== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.15);
+    background-color: var(--card-bg);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+form button[type="submit"] {
+    align-self: flex-start;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 0.75rem 1.75rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 0.5rem;
+}
+
+form button[type="submit"]:hover,
+form button[type="submit"]:focus {
+    background-color: var(--primary-hover);
+    outline: 2px solid var(--primary-hover);
+    outline-offset: 2px;
+}
+
+form button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* ==========================================================================
    Responsive Design
    ========================================================================== */
 @media (max-width: 600px) {
