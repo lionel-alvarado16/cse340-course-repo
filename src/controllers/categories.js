@@ -1,5 +1,5 @@
 // Import any needed model functions
-import { getAllCategories, getCategoryDetails, getCategoriesByProjectId } from '../models/categories.js';
+import { getAllCategories, getCategoryDetails, getCategoriesByProjectId, updateCategoryAssignments } from '../models/categories.js';
 import { getProjectsByCategoryId, getProjectDetails } from '../models/projects.js';
 
 // Define any controller functions
