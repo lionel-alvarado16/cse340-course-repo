@@ -43,7 +43,7 @@ const createOrganization = async (name, description, contactEmail, logoFileName)
     const query = `
         INSERT INTO organization (name, description, contact_email, logo_filename)
         VALUES ($1, $2, $3, $4)
-        RETURNING organization_id
+        RETURNING organization_id;
     `;
 
     const queryParams = [name, description, contactEmail, logoFileName];
@@ -65,7 +65,7 @@ const updateOrganization = async (organizationId, name, description, contactEmai
         UPDATE organization
         SET name = $1, description = $2, contact_email = $3, logo_filename = $4
         WHERE organization_id = $5
-        RETURNING organization_id
+        RETURNING organization_id;
     `;
 
     const queryParams = [name, description, contactEmail, logoFilename, organizationId];

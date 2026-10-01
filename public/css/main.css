@@ -359,7 +359,8 @@ form {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 0.75rem 1rem;
     font-family: var(--font-family);
@@ -372,7 +373,8 @@ form {
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.15);
@@ -382,6 +384,17 @@ form {
 .form-group textarea {
     resize: vertical;
     min-height: 120px;
+}
+
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+    cursor: pointer;
 }
 
 form button[type="submit"] {
@@ -408,6 +421,47 @@ form button[type="submit"]:focus {
 
 form button[type="submit"]:active {
     transform: translateY(1px);
+}
+
+/* ==========================================================================
+   Checkbox Group Styles (For Assign Categories Form)
+   ========================================================================== */
+.form-group .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.form-group .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--bg-color);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.form-group .checkbox-item:hover {
+    background-color: var(--card-bg);
+    border-color: var(--primary-color);
+}
+
+.form-group .checkbox-item input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.form-group .checkbox-item label {
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-color);
+    margin: 0;
 }
 
 /* ==========================================================================
