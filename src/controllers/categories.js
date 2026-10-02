@@ -1,6 +1,16 @@
 // Import any needed model functions
-import { getAllCategories, getCategoryDetails, getCategoriesByProjectId, updateCategoryAssignments } from '../models/categories.js';
+import { getAllCategories, getCategoryDetails, getCategoriesByProjectId, updateCategoryAssignments, createCategory, updateCategory } from '../models/categories.js';
 import { getProjectsByCategoryId, getProjectDetails } from '../models/projects.js';
+import { body, validationResult } from 'express-validator';
+
+// Define validation and sanitization rules for category form
+// Define validation rules for category form
+const categoryValidation = [
+    body('categoryName')
+        .trim()
+        .notEmpty().withMessage('Category name is required')
+        .isLength({ min: 3, max: 100 }).withMessage('Category name must be between 3 and 100 characters')
+];
 
 // Define any controller functions
 const showCategoriesPage = async (req, res) => {
@@ -42,5 +52,48 @@ const processAssignCategoriesForm = async (req, res) => {
     res.redirect(`/project/${projectId}`);
 };
 
+const showNewCategoryForm = async (req, res) => {
+    const title = 'Add New Category';
+
+    res.render('new-category', { title });
+};
+
+const processNewCategoryForm = async (req, res) => {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // Loop through validation errors and flash them
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+
+        // Redirect back to the new project form
+        return res.redirect('/new-category');
+    }
+
+    // Extract form date from req.body
+    const { categoryName } = req.body;
+
+    try {
+        // Create the new category in the database
+        const newCategoryId = await createCategory(categoryName);
+
+        req.flash('success', 'New category created successfully!');
+        res.redirect(`/category/${newCategoryId}`);
+    } catch (error) {
+        console.error('Error creating new category:', error);
+        req.flash('error', 'There was an error creating the category.');
+        res.redirect('new-category');
+    }
+};
+
 // Export any controller functions
-export { showCategoriesPage, showCategoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm };
+export {
+    showCategoriesPage,
+    showCategoryDetailsPage,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm,
+    categoryValidation,
+    showNewCategoryForm,
+    processNewCategoryForm
+};
