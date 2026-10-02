@@ -26,7 +26,9 @@ import {
     processAssignCategoriesForm,
     showNewCategoryForm,
     processNewCategoryForm,
-    categoryValidation
+    categoryValidation,
+    showEditCategoryForm,
+    processEditCategoryForm
 } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
 
@@ -64,6 +66,11 @@ router.post('/edit-organization/:id', organizationValidation, processEditOrganiz
 // Routes to handle the assign categories to project form
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
+
+// Route to display the edit category form
+router.get('/edit-category/:id', showEditCategoryForm);
+// Route to handle the edit category form submission
+router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
 
 // Route to display the edit project form
 router.get('/edit-project/:id', showEditProjectForm);

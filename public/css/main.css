@@ -465,6 +465,39 @@ form button[type="submit"]:active {
 }
 
 /* ==========================================================================
+   Action Buttons (Add / Create Links)
+   ========================================================================== */
+.actions-container {
+    margin-top: 2rem;
+}
+
+.btn-action {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-action:hover,
+.btn-action:focus {
+    background-color: #219653;
+    color: #ffffff;
+    outline: 2px solid #219653;
+    outline-offset: 2px;
+    box-shadow: var(--shadow);
+}
+
+.btn-action:active {
+    transform: translateY(1px);
+}
+
+/* ==========================================================================
    Responsive Design
    ========================================================================== */
 @media (max-width: 600px) {

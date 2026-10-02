@@ -87,6 +87,36 @@ const processNewCategoryForm = async (req, res) => {
     }
 };
 
+const showEditCategoryForm = async (req, res) => {
+    const categoryId = req.params.id;
+    const categoryDetails = await getCategoryDetails(categoryId);
+
+    const title = 'Edit Category';
+    res.render('edit-category', { title, categoryDetails });
+};
+
+const processEditCategoryForm = async (req, res) => {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // Loop through validation errors and flash them
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+
+        // Redirect back to the edit category form
+        return res.redirect(`/edit-category/` + req.params.id);
+    }
+
+    const categoryId = req.params.id;
+    const { categoryName } = req.body;
+    await updateCategory(categoryId, categoryName);
+
+    //Set a success flash message
+    req.flash('success', 'Category updated successfully!');
+    res.redirect(`/category/${categoryId}`);
+};
+
 // Export any controller functions
 export {
     showCategoriesPage,
@@ -95,5 +125,7 @@ export {
     processAssignCategoriesForm,
     categoryValidation,
     showNewCategoryForm,
-    processNewCategoryForm
+    processNewCategoryForm,
+    showEditCategoryForm,
+    processEditCategoryForm
 };
