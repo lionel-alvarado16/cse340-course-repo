@@ -45,7 +45,7 @@
                 id="date"
                 name="date"
                 required
-                value="<%= new Date(projectDetails.date).toLocaleDateString() %>"
+                value="<%= projectDetails.date ? new Date(projectDetails.date).toISOString().split('T')[0] : '' %>"
             />
         </div>
 
@@ -56,9 +56,13 @@
                 name="organizationId"
                 required
             >
-                <option value="<%= projectDetails.organization_name %>">Select an organization</option>
+                <option value="" disabled>Select an organization</option>
                 <% organizations.forEach(org => { %>
-                    <option value="<%= org.organization_id %>"><%= org.name %></option>
+                    <option 
+                        value="<%= org.organization_id %>"
+                        <%= org.organization_id===projectDetails.organization_id ? 'selected' : '' %>>
+                        <%= org.name %>
+                    </option>
                 <% }); %>
             </select>
         </div>
