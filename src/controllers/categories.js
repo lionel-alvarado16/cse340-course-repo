@@ -71,7 +71,7 @@ const processNewCategoryForm = async (req, res) => {
         return res.redirect('/new-category');
     }
 
-    // Extract form date from req.body
+    // Extract form data from req.body
     const { categoryName } = req.body;
 
     try {

@@ -66,7 +66,7 @@ const processNewProjectForm = async (req, res) => {
         return res.redirect('/new-project');
     }
 
-    // Extract form date from req.body
+    // Extract form data from req.body
     const { title, description, location, date, organizationId } = req.body;
     
     try {
