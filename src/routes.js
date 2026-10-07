@@ -31,6 +31,7 @@ import {
     processEditCategoryForm
 } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
+import { showUserRegistrationForm, processUserRegistrationForm } from './controllers/users.js';
 
 const router = express.Router();
 
@@ -53,6 +54,10 @@ router.post('/new-project', projectValidation, processNewProjectForm);
 router.get('/new-category', showNewCategoryForm);
 // Route to handle new category form submission
 router.post('/new-category', categoryValidation, processNewCategoryForm);
+
+// User registration routes
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
 
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/project/:id', showProjectDetailsPage);
