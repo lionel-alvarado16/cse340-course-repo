@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createUser } from '../models/users';
+import { createUser } from '../models/users.js';
 
 const showUserRegistrationForm = async (req, res) => {
     res.render('register', { title: 'Register' });
