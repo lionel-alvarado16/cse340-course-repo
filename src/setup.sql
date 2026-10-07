@@ -32,7 +32,7 @@ CREATE TABLE project (
 );
 
 -- ========================================
--- Insert sample data: PROJECTS
+-- Insert sample data: Projects
 -- ========================================
 INSERT INTO project (organization_id, title, description, location, date) 
 VALUES
@@ -117,3 +117,33 @@ VALUES
 (13, 3), -- After-School Tutoring Outreach -> Education
 (14, 2), -- Winter Coat Distribution Prep -> Community Service
 (15, 2); -- Disaster Relief Kit Assembly -> Community Service
+
+-- ========================================
+-- Roles Table
+-- ========================================
+CREATE TABLE roles (
+	role_id SERIAL PRIMARY KEY,
+	role_name VARCHAR(50) UNIQUE NOT NULL,
+	role_description TEXT
+);
+
+-- ========================================
+-- Insert sample data: Roles
+-- ========================================
+INSERT INTO roles (role_name, role_description)
+VALUES
+('user', 'Standard user with basic access'),
+('admin', 'Administrator with full system access');
+
+-- ========================================
+-- Users Table
+-- ========================================
+CREATE TABLE users (
+	user_id SERIAL PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL,
+	password_hash VARCHAR(255) NOT NULL,
+	role_id INTEGER,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (role_id) REFERENCES roles(role_id)
+);
