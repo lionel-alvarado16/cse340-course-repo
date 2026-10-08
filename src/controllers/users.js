@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { createUser, authenticateUser } from '../models/users.js';
+import { createUser, getAllUsers, authenticateUser } from '../models/users.js';
 
 const showUserRegistrationForm = async (req, res) => {
     res.render('register', { title: 'Register' });
@@ -90,7 +90,7 @@ const showDashboard = (req, res) => {
  * @param {string} role - The role name required (e.g., 'admin', 'user')
  * @returns {Function} Express middleware function
  */
-const requireRole = (role) => {
+const requireRole = (role, redirectTo = '/') => {
     return (req, res, next) => {
         // Check if user is logged in first
         if (!req.session || !req.session.user) {
@@ -101,12 +101,19 @@ const requireRole = (role) => {
         // Check if user's role matches the required role
         if (req.session.user.role_name !== role) {
             req.flash('error', 'You do not have permission to access this page.');
-            return res.redirect('/');
+            return res.redirect(redirectTo);
         }
 
         // User has required role, continue
         next();
     };
+};
+
+const showUsersList = async (req, res) => {
+    const users = await getAllUsers();
+    const title = 'Users Page';
+
+    res.render('users', { title, users });
 };
 
 export {
@@ -117,5 +124,6 @@ export {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersList
 };
