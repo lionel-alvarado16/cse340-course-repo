@@ -10,6 +10,8 @@
         <% }) %>
     </ul>
 
-    <p class="actions-container"><a href="/edit-category/<%= categoryDetails.category_id %>" class="btn-action">Edit Category</a></p>
+    <% if (user && user.role_name==='admin' ) { %>
+        <p class="actions-container"><a href="/edit-category/<%= categoryDetails.category_id %>" class="btn-action">Edit Category</a></p>
+    <% } %>
 </main>
 <%- include('partials/footer') %>

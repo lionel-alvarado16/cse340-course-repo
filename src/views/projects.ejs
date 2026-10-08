@@ -17,6 +17,8 @@
         <% }); %>
     </ul>
 
-    <p class="actions-container"><a href="/new-project" class="btn-action">Add a New Service Project</a></p>
+    <% if (user && user.role_name==='admin' ) { %>
+        <p class="actions-container"><a href="/new-project" class="btn-action">Add a New Service Project</a></p>
+    <% } %>
 </main>
 <%- include('partials/footer') %>
