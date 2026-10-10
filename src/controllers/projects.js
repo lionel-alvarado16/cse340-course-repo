@@ -1,5 +1,5 @@
 // Import any needed model functions
-import { getAllProjects, getProjectDetails, getUpcomingProjects, createProject, updateProject } from '../models/projects.js';
+import { getAllProjects, getProjectDetails, getUpcomingProjects, createProject, updateProject, getProjectsByCategoryId, getProjectsByUserId } from '../models/projects.js';
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
@@ -43,7 +43,14 @@ const showProjectDetailsPage = async (req, res) => {
     const categories = await getCategoriesByProjectId(projectId);
     const title = 'Project Details';
 
-    res.render('project', { title, projectDetails, categories});
+    // Check if the user is logged in and is already a volunteer for this project
+    let isVolunteer = false;
+    if (req.session && req.session.user) {
+        const userProjects = await getProjectsByUserId(req.session.user.user_id);
+        isVolunteer = userProjects.some(p => p.project_id == projectId);
+    }
+
+    res.render('project', { title, projectDetails, categories, isVolunteer});
 };
 
 const showNewProjectForm = async (req, res) => {

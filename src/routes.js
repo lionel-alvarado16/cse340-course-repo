@@ -40,7 +40,10 @@ import {
     requireLogin,
     showDashboard,
     requireRole,
-    showUsersList
+    showUsersList,
+    processAddVolunteer,
+    processRemoveVolunteer,
+    processRemoveVolunteerFromDashboard
 } from './controllers/users.js';
 
 const router = express.Router();
@@ -76,6 +79,7 @@ router.get('/logout', processLogout);
 
 // Protected dashboards route
 router.get('/dashboard', requireLogin, showDashboard);
+router.get('/dashboard/project/:id/remove-volunteer', requireLogin, processRemoveVolunteerFromDashboard);
 
 // Route for Users Page
 router.get('/users', requireRole('admin', '/dashboard'), showUsersList);
@@ -102,6 +106,10 @@ router.post('/edit-category/:id', requireRole('admin'), categoryValidation, proc
 router.get('/edit-project/:id', requireRole('admin'), showEditProjectForm);
 // Route to handle the edit project form submission
 router.post('/edit-project/:id', requireRole('admin'), projectValidation, processEditProjectForm);
+
+// Volunteering routes (protected so that only logged-in users can access them)
+router.get('/project/:id/volunteer', requireLogin, processAddVolunteer);
+router.get('/project/:id/remove-volunteer', requireLogin, processRemoveVolunteer);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);

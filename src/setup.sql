@@ -147,3 +147,15 @@ CREATE TABLE users (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
+
+-- ========================================
+-- Project Volunteers Table (Junction Table)
+-- ========================================
+CREATE TABLE project_volunteer (
+	user_id INTEGER NOT NULL,
+	project_id INTEGER NOT NULL,
+	enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (user_id, project_id),
+	FOREIGN KEY (user_id) REFERENCES users(user_id),
+	FOREIGN KEY (project_id) REFERENCES project(project_id)
+);

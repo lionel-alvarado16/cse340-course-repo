@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
-import { createUser, getAllUsers, authenticateUser } from '../models/users.js';
+import { createUser, getAllUsers, authenticateUser, addVolunteerToProject, removeVolunteerFromProject } from '../models/users.js';
+import { getProjectsByUserId } from '../models/projects.js';
 
 const showUserRegistrationForm = async (req, res) => {
     res.render('register', { title: 'Register' });
@@ -74,13 +75,28 @@ const requireLogin = (req, res, next) => {
     next();
 };
 
-const showDashboard = (req, res) => {
-    const user = req.session.user;
-    res.render('dashboard', {
-        title: 'Dashboard',
-        name: user.name,
-        email: user.email
-    });
+const showDashboard = async (req, res) => {
+    try {
+        const user = req.session.user;
+
+        const volunteerProjects = await getProjectsByUserId(user.user_id);
+
+        res.render('dashboard', {
+            title: 'Dashboard',
+            name: user.name,
+            email: user.email,
+            volunteerProjects
+        });
+    } catch (error) {
+        console.error('Error loading dashboard:', error);
+        req.flash('error', 'Could not load your dashboard projects.');
+        res.render('dashboard', {
+            title: 'Dashboard',
+            name: req.session.user.name,
+            email: req.session.user.email,
+            volunteerProjects: []
+        });
+    }
 };
 
 /**
@@ -116,6 +132,61 @@ const showUsersList = async (req, res) => {
     res.render('users', { title, users });
 };
 
+const processAddVolunteer = async (req, res) => {
+    try {
+        const projectId = req.params.id;
+        const user = req.session.user;
+
+        if (!user) {
+            req.flash('error', 'You must be logged in to volunteer.');
+            return res.redirect('/login');
+        }
+
+        await addVolunteerToProject(user.user_id, projectId);
+        req.flash('success', 'Volunteer added to the project successfully.');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error adding volunteer:', error);
+        req.flash('error', 'Could not add volunteer to the project.');
+        res.redirect(`/project/${req.params.id}`);
+    }
+};
+
+const processRemoveVolunteer = async (req, res) => {
+    try {
+        const projectId = req.params.id;
+        const user = req.session.user;
+
+        if (!user) {
+            req.flash('error', 'You must be logged in.');
+            return res.redirect('/login');
+        }
+
+        await removeVolunteerFromProject(user.user_id, projectId);
+        req.flash('success', 'Volunteer removed from the project successfully.');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error removing volunteer:', error);
+        req.flash('error', 'Could not remove volunteer from the project.');
+        res.redirect(`/project/${req.params.id}`);
+    }
+};
+
+const processRemoveVolunteerFromDashboard = async (req, res) => {
+    try {
+        const projectId = req.params.id;
+        const user = req.session.user;
+
+        await removeVolunteerFromProject(user.user_id, projectId);
+        req.flash('success', 'You have been removed as a volunteer from the project.');
+        res.redirect('/dashboard');
+    } catch (error) {
+        console.error('Error removing volunteer:', error);
+        req.flash('error', 'Could not remove volunteer.');
+        res.redirect('/dashboard');
+    }
+};
+
 export {
     showUserRegistrationForm,
     processUserRegistrationForm,
@@ -125,5 +196,8 @@ export {
     requireLogin,
     showDashboard,
     requireRole,
-    showUsersList
+    showUsersList,
+    processAddVolunteer,
+    processRemoveVolunteer,
+    processRemoveVolunteerFromDashboard
 };

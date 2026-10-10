@@ -58,6 +58,24 @@ const findUserByEmail = async (email) => {
     return result.rows[0];
 };
 
+const addVolunteerToProject = async (userId, projectId) => {
+    const query = `
+        INSERT INTO project_volunteer (user_id, project_id)
+        VALUES ($1, $2);
+    `;
+
+    await db.query(query, [userId, projectId]);
+};
+
+const removeVolunteerFromProject = async (userId, projectId) => {
+    const query = `
+        DELETE FROM project_volunteer
+        WHERE user_id = $1 AND project_id = $2;
+    `;
+
+    await db.query(query, [userId, projectId]);
+}
+
 const verifyPassword = async (password, passwordHash) => {
     return bcrypt.compare(password, passwordHash);
 };
@@ -77,4 +95,4 @@ const authenticateUser = async (email, password) => {
     return null;
 };
 
-export { createUser, getAllUsers, authenticateUser };
+export { createUser, getAllUsers, authenticateUser, addVolunteerToProject, removeVolunteerFromProject };
