@@ -42,6 +42,14 @@ body {
     /* Hover state dark blue */
     --accent-color: #27ae60;
     /* Service-oriented green accent */
+    --secondary-color: #2980b9;
+    /* Professional secondary blue for admin actions */
+    --secondary-hover: #1f618d;
+    /* Hover state for secondary buttons */
+    --danger-color: #c0392b;
+    /* Alert/danger color for removal actions */
+    --danger-hover: #962d22;
+    /* Hover state for danger color */
     --bg-color: #f4f7f6;
     /* Soft background color */
     --card-bg: #ffffff;
@@ -78,36 +86,78 @@ body {
 }
 
 /* ==========================================================================
-   Navigation (Responsive & Accessible)
+   Navigation (Responsive Brand & Links)
    ========================================================================== */
 nav {
     background-color: var(--primary-color);
     box-shadow: var(--shadow);
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.5rem;
 }
 
-nav ul {
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Brand & Icon styles */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: opacity 0.2s ease;
+}
+
+.nav-brand:hover {
+    opacity: 0.9;
+}
+
+.nav-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    background-color: #ffffff;
+    padding: 3px;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.nav-title {
+    color: #ffffff;
+    letter-spacing: 0.02em;
+}
+
+/* Navigation Link Items */
+.nav-links {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    max-width: 1100px;
-    margin: 0 auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
 }
 
-nav a {
+.nav-links a {
     color: #ffffff;
     text-decoration: none;
     font-weight: 600;
-    font-size: 1.05rem;
-    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    padding: 0.4rem 0.75rem;
     border-radius: 4px;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-nav a:hover,
-nav a:focus {
+.nav-links a:hover,
+.nav-links a:focus {
     background-color: rgba(255, 255, 255, 0.15);
     color: #ffffff;
     outline: 2px solid #ffffff;
@@ -138,8 +188,14 @@ h1 {
 
 h2 {
     color: var(--text-color);
-    font-size: 1.5rem;
-    margin: 1.5rem 0 1rem;
+    font-size: 1.7rem;
+    margin: 1.5rem 0 1.2rem;
+}
+
+h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin: 2rem 0 1rem;
 }
 
 p {
@@ -148,13 +204,34 @@ p {
     color: var(--text-color);
 }
 
+/* ==========================================================================
+   Home Hero Section Layout
+   ========================================================================== */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.hero-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
 /* Main Homepage Logo */
 .main-logo {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 2rem auto 0;
     border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
 /* ==========================================================================
@@ -196,6 +273,92 @@ main ul li img {
 /* Highlighted inline text */
 main ul li strong {
     color: var(--primary-color);
+}
+
+/* ==========================================================================
+   Project Details View Styles
+   ========================================================================== */
+.project-categories {
+    margin: 1.5rem 0;
+}
+
+.project-categories p {
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+/* Admin actions button group */
+.admin-actions-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Volunteer status container card (shown only when enrolled) */
+.volunteer-status-card {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.volunteer-status-card.active {
+    border-left: 5px solid var(--accent-color);
+    background-color: #f0fdf4;
+}
+
+.status-message {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Dashboard Volunteer Projects Section
+   ========================================================================== */
+.volunteer-projects-section {
+    margin-top: 2.5rem;
+}
+
+.volunteer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+}
+
+.volunteer-item {
+    background-color: var(--bg-color);
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius);
+    border-left: 5px solid var(--accent-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.volunteer-item p {
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+.volunteer-item p:last-child {
+    margin-bottom: 0;
 }
 
 /* ==========================================================================
@@ -276,7 +439,6 @@ footer p {
 /* ==========================================================================
    Category Tags
    ========================================================================== */
-/* Optional container to align tags if there are multiple */
 .tags-container {
     display: flex;
     flex-wrap: wrap;
@@ -284,7 +446,6 @@ footer p {
     margin-top: 5px;
 }
 
-/* Main style for each category tag */
 .category-tag {
     display: inline-block;
     padding: 6px 12px;
@@ -296,7 +457,6 @@ footer p {
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* Hover effect */
 .category-tag:hover {
     background-color: #cbd5e0;
     transform: translateY(-1px);
@@ -337,7 +497,7 @@ footer p {
 }
 
 /* ==========================================================================
-   Form Styles (Organization Form)
+   Form Styles
    ========================================================================== */
 form {
     display: flex;
@@ -424,7 +584,7 @@ form button[type="submit"]:active {
 }
 
 /* ==========================================================================
-   Checkbox Group Styles (For Assign Categories Form)
+   Checkbox Group Styles
    ========================================================================== */
 .form-group .checkbox-grid {
     display: grid;
@@ -465,10 +625,10 @@ form button[type="submit"]:active {
 }
 
 /* ==========================================================================
-   Action Buttons (Add / Create Links)
+   Action Buttons
    ========================================================================== */
 .actions-container {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .btn-action {
@@ -482,6 +642,7 @@ form button[type="submit"]:active {
     text-decoration: none;
     transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    white-space: nowrap;
 }
 
 .btn-action:hover,
@@ -497,9 +658,36 @@ form button[type="submit"]:active {
     transform: translateY(1px);
 }
 
+/* Secondary variant for admin management actions */
+.btn-action.btn-secondary {
+    background-color: var(--secondary-color);
+}
+
+.btn-action.btn-secondary:hover,
+.btn-action.btn-secondary:focus {
+    background-color: var(--secondary-hover);
+    outline-color: var(--secondary-hover);
+}
+
+/* Danger variant for remove actions */
+.btn-action.btn-danger {
+    background-color: var(--danger-color);
+}
+
+.btn-action.btn-danger:hover,
+.btn-action.btn-danger:focus {
+    background-color: var(--danger-hover);
+    outline-color: var(--danger-hover);
+}
+
 /* ==========================================================================
-   Users Table
+   Users Table & Responsive Card Transformation
    ========================================================================== */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
 .users-table {
     width: 100%;
     border-collapse: collapse;
@@ -537,7 +725,7 @@ form button[type="submit"]:active {
 /* ==========================================================================
    Responsive Design
    ========================================================================== */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     main {
         padding: 1.5rem;
         margin: 1.5rem auto;
@@ -547,20 +735,93 @@ form button[type="submit"]:active {
         font-size: 1.8rem;
     }
 
-    nav ul {
+    /* Stack navigation brand and links on mobile */
+    .nav-container {
         flex-direction: column;
         align-items: center;
+        gap: 0.75rem;
+    }
+
+    .nav-links {
+        justify-content: center;
+        width: 100%;
         gap: 0.5rem;
     }
 
-    nav a {
-        display: block;
+    .nav-links a {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.95rem;
+    }
+
+    main ul li:not(.project-card, .volunteer-item) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .volunteer-item,
+    .volunteer-status-card,
+    .admin-actions-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .admin-actions-group .btn-action {
         width: 100%;
         text-align: center;
     }
 
-    main ul li:not(.project-card) {
+    /* Stack hero elements on mobile view */
+    .hero-container {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 2rem;
+    }
+
+    .hero-image-wrapper {
+        width: 100%;
+    }
+
+    /* Transform table into stacked cards for mobile view */
+    .users-table,
+    .users-table thead,
+    .users-table tbody,
+    .users-table th,
+    .users-table td,
+    .users-table tr {
+        display: block;
+    }
+
+    .users-table thead {
+        display: none;
+    }
+
+    .users-table tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        background-color: var(--bg-color);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        padding: 0.5rem 1rem;
+    }
+
+    .users-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.6rem 0;
+        border-bottom: 1px dashed var(--border-color);
+        font-size: 0.95rem;
+    }
+
+    .users-table td:last-child {
+        border-bottom: none;
+    }
+
+    .users-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-right: 1rem;
     }
 }

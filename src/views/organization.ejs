@@ -15,7 +15,7 @@
     </ul>
 
     <% if (user && user.role_name==='admin' ) { %>
-        <p class="actions-container"><a href="/edit-organization/<%= organizationDetails.organization_id %>" class="btn-action">Edit Organization</a></p>
+        <p class="actions-container"><a href="/edit-organization/<%= organizationDetails.organization_id %>" class="btn-action btn-secondary">Edit Organization</a></p>
     <% } %>
 </main>
 <%- include('partials/footer') %>

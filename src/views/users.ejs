@@ -4,24 +4,26 @@
     <h1><%= title %></h1>
 
     <% if (users && users.length > 0) { %>
-        <table class="users-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% users.forEach(user => { %>
+        <div class="table-container">
+            <table class="users-table">
+                <thead>
                     <tr>
-                        <td><%= user.name %></td>
-                        <td><%= user.email %></td>
-                        <td><%= user.role_name %></td>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
                     </tr>
-                <% }); %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td data-label="Name"><%= user.name %></td>
+                            <td data-label="Email"><%= user.email %></td>
+                            <td data-label="Role"><%= user.role_name %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
     <% } else { %>
         <p>No registered users found.</p>
     <% } %>

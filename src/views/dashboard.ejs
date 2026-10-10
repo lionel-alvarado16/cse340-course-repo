@@ -24,7 +24,7 @@
                             <p>Date: <%= new Date(project.date).toLocaleDateString() %></p>
                         </div>
                         <p class="actions-container">
-                            <a href="/dashboard/project/<%= project.project_id %>/remove-volunteer" class="btn-action">Remove Volunteer</a>
+                            <a href="/dashboard/project/<%= project.project_id %>/remove-volunteer" class="btn-action btn-danger">Remove Volunteer</a>
                         </p>
                     </li>
                 <% }) %>

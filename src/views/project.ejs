@@ -18,21 +18,25 @@
         </div>
     </div>
 
-    <% if (user && user.role_name==='admin' ) { %>
-        <p class="actions-container"><a href="/edit-project/<%= projectDetails.project_id %>" class="btn-action">Edit Service Project</a></p>
-        <p class="actions-container"><a href="/assign-categories/<%= projectDetails.project_id %>" class="btn-action">Edit Categories</a></p>
+    <!-- Admin Management Actions Group -->
+    <% if (user && user.role_name === 'admin') { %>
+        <div class="admin-actions-group">
+            <a href="/edit-project/<%= projectDetails.project_id %>" class="btn-action btn-secondary">Edit Service Project</a>
+            <a href="/assign-categories/<%= projectDetails.project_id %>" class="btn-action btn-secondary">Edit Categories</a>
+        </div>
     <% } %>
 
+    <!-- User Volunteer Action / Status -->
     <% if (user) { %>
         <% if (isVolunteer) { %>
-            <p class="actions-container">
-                You are volunteering for this project. 
-                <a href="/project/<%= projectDetails.project_id %>/remove-volunteer" class="btn-action">Remove Volunteer</a>
-            </p>
+            <div class="volunteer-status-card active">
+                <span class="status-message">✓ You are volunteering for this project.</span>
+                <a href="/project/<%= projectDetails.project_id %>/remove-volunteer" class="btn-action btn-danger">Remove Volunteer</a>
+            </div>
         <% } else { %>
-            <p class="actions-container">
+            <div class="actions-container">
                 <a href="/project/<%= projectDetails.project_id %>/volunteer" class="btn-action">Volunteer for this project</a>
-            </p>
+            </div>
         <% } %>
     <% } %>
 </main>
